@@ -1,0 +1,272 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<!-- Begin Jekyll SEO tag v2.2.0 -->
+<title>Custom HTML Content in PhotoSwipe Slides | Ambon Blue Rose Divers</title>
+<meta property="og:title" content="Custom HTML Content in PhotoSwipe Slides" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="How to add custom HTML in PhotoSwipe slides, like ads or list of related galleries." />
+<meta property="og:description" content="How to add custom HTML in PhotoSwipe slides, like ads or list of related galleries." />
+<link rel="canonical" href="/assets/photoswipe/website/documentation/custom-html-in-slides.html" />
+<meta property="og:url" content="/assets/photoswipe/website/documentation/custom-html-in-slides.html" />
+<meta property="og:site_name" content="Ambon Blue Rose Divers" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "WebPage",
+"headline": "Custom HTML Content in PhotoSwipe Slides",
+"description": "How to add custom HTML in PhotoSwipe slides, like ads or list of related galleries.",
+"url": "/assets/photoswipe/website/documentation/custom-html-in-slides.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<!--[if lte IE 8]><script src="/assets/css/ie/html5shiv.js"></script><![endif]-->
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/jquery.dropotron.min.js"></script>
+	<!-- <script src="/assets/skel/src/skel.js"></script> -->
+	<!-- <script src="/assets/skel/src/skel-layout.js"></script> -->
+	<!-- <script src="/assets/js/skel.min.js"></script>
+	<script src="/assets/js/skel-layers.min.js"></script> -->
+	<!-- <script src="/assets/js/init.js"></script> -->
+
+	<!-- <link rel="stylesheet" href="/assets/css/skel.css" /> -->
+	<link rel="stylesheet" href="/assets/css/pure-min.css" />
+	<link rel="stylesheet" href="/assets/css/grids-responsive-min.css" />
+
+	<link rel="stylesheet" href="/assets/css/main.css" />
+	<!-- <link rel="stylesheet" href="/assets/css/style.css" />
+	<link rel="stylesheet" href="/assets/css/style-wide.css" />
+	<link rel="stylesheet" href="/assets/css/style-narrow.css" /> -->
+
+	<noscript>
+		<link rel="stylesheet" href="/assets/css/skel.css" />
+		<link rel="stylesheet" href="/assets/css/style.css" />
+		<!-- <link rel="stylesheet" href="/assets/css/style.css" /> -->
+	</noscript>
+	<!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie/v8.css" /><![endif]-->
+	<link rel="stylesheet" href="/assets/slicknav/dist/slicknav.css" />
+
+	 
+</head>
+
+<body>
+	<p>To make PhotoSwipe display HTML content in slides you need to define <code class="highlighter-rouge">html</code> property in slide object. It should contain HTML string or DOM element object.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>
+<span class="kd">var</span> <span class="nx">items</span> <span class="o">=</span> <span class="p">[</span>
+	<span class="c1">// slide 1 with HTML</span>
+	<span class="p">{</span>
+		<span class="na">html</span><span class="p">:</span> <span class="s1">'&lt;div&gt;&lt;h1&gt;Any HTML &lt;a href="http://example.com"&gt;content&lt;/a&gt;&lt;/h1&gt;&lt;/div&gt;'</span>
+	<span class="p">},</span>
+
+	<span class="c1">// slide 2 with image</span>
+	<span class="p">{</span>
+		<span class="na">src</span><span class="p">:</span> <span class="s1">'path/to/image.jpg'</span><span class="p">,</span>
+		<span class="na">w</span><span class="p">:</span><span class="mi">600</span><span class="p">,</span>
+		<span class="na">h</span><span class="p">:</span><span class="mi">200</span>
+	<span class="p">}</span>
+<span class="p">];</span>
+
+
+<span class="c1">// initialise as usual</span>
+<span class="kd">var</span> <span class="nx">gallery</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PhotoSwipe</span><span class="p">(</span> <span class="nx">pswpElement</span><span class="p">,</span> <span class="nx">PhotoSwipeUI_Default</span><span class="p">,</span> <span class="nx">items</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+
+<span class="c1">// You don't necessarily need to have "html" property in slide object initially.</span>
+<span class="c1">// You may create it dynamically in gettingData event:</span>
+<span class="cm">/*
+	gallery.listen('gettingData', function(index, item) {
+		if(index === 3) {
+			item.html = '&lt;div&gt;Dynamically generated HTML ' + Math.random() + '&lt;/div&gt;';
+		}
+
+	});
+*/</span>
+
+<span class="c1">// Note that init() method is called after gettingData event is bound</span>
+<span class="nx">gallery</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+</code></pre>
+</div>
+
+<p>Additional important notes:</p>
+
+<ul>
+  <li>To avoid conflicts with third-party modules, slide that has <code class="highlighter-rouge">html</code> property, should not have <code class="highlighter-rouge">src</code> (image) property.</li>
+  <li>PhotoSwipe is designed for images, not as a scroller of text content. Use “custom HTML” feature as an addition, for example for slide with related galleries, an introductory slide, or advertisements BETWEEN images.</li>
+  <li>It’s strongly not recommended to add video or audio elements using this method (including YouTube, Vimeo etc. iframes). As HTML5 video blocks touch events over it in many mobile browsers (user won’t be able to swipe it). If you really need to have video in PhotoSwipe, you may add it as modal that appears when user taps on current slide, you can dynamically create modal in DOM and append it after <code class="highlighter-rouge">.pswp__scroll-wrap</code> element.</li>
+  <li>If you have initial zoom-in/zoom-out transition enabled, PhotoSwipe will automatically disable it if current slide has <code class="highlighter-rouge">html</code>, simple fade transition will be used instead.</li>
+  <li>By default PhotoSwipe will allow click event just on links (<code class="highlighter-rouge">&lt;a&gt;</code>) and their child elements. To change this behavior look into <code class="highlighter-rouge">isClickableElement</code> option or <code class="highlighter-rouge">preventDragEvent</code> event.</li>
+  <li>Zoom of HTML slides is not supported, yet.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="codepen-embed">
+	<p data-height="600" data-theme-id="10447" data-slug-hash="MYexrm" data-default-tab="result" data-user="dimsemenov" class="codepen">
+		<a href="http://codepen.io/dimsemenov/pen/MYexrm/" target="_blank"><strong>View example on CodePen &rarr;</strong></a>
+	</p>
+</div>
+
+<p>Tip: you may download the example from CodePen to play with it locally (<code class="highlighter-rouge">Edit on CodePen</code> -&gt; <code class="highlighter-rouge">Share</code> -&gt; <code class="highlighter-rouge">Export .zip</code>).</p>
+
+<p>Know how this page can be improved? <a href="https://github.com/dimsemenov/PhotoSwipe/blob/master/website/documentation/custom-html-in-slides.md">Suggest an edit!</a></p>
+
+
+	<!-- Footer -->
+	<div id="footer">
+		<div class="container">
+
+			<!-- Lists -->
+			<div class="pure-g">
+				<div class="pure-u-1 pure-u-md-1-3">
+					<section class="box">
+						<header class="major">
+							<h3>Bluerose Divers</h3>
+							<!-- <span class="byline">Mattis wisi maecenas ligula</span> -->
+						</header>
+						<ul class="default">
+							<li>
+								<i class="fa fa-lg fa-fw fa-envelope-o"></i>
+								<span class="mail"> Mail: </span>
+								<br/>
+								<span><a href="#">ambonbluerose@gmail.com</a></span>
+							</li>
+							<li>
+								<i class="fa fa-lg fa-fw fa-phone"></i><span class="phone"> Phone: </span>
+								<br/>
+
+								<span>(000) 000-0000</span>
+							</li>
+							<li>
+								<i class="fa fa-lg fa-fw fa-map-signs"></i>
+								<span class="address">Address: </span>
+								<br/>
+								<span>1234 Somewhere Road #4285 <br />Nashville, TN 00000</span>
+							</li>
+						</ul>
+					</section>
+				</div>
+
+				<div class="pure-u-1 pure-u-md-1-3">
+					<section class="box">
+						<header class="major">
+							<h3>Social Media</h3>
+							<!-- <span class="byline">If you like our services, please follow and rate us.</span> -->
+						</header>
+						<div class="row">
+							<section class="6u">
+								<ul class="default">
+									<li>
+										<a href="https://www.facebook.com/ambonbluerose"> <i class="fa fa-lg fa-fw fa-facebook"></i>
+											<span class="mail">Facebook</span>
+											<br/>
+											<span> https://www.facebook.com/ambonbluerose</span> </a>
+									</li>
+									<!-- <li>
+										<a href="#"> <i class="fa fa-lg fa-fw fa-youtube"></i> youtube
+										</a>
+									</li> -->
+
+									<li>
+										<a href="#"> <i class="fa fa-lg fa-fw fa-flickr"></i> flickr
+											<br/>
+											<span>https://www.flickr.com/groups/ambon/</span> </a>
+										</a>
+									</li>
+									<li>
+										<a href="#"> <i class="fa fa-lg fa-fw fa-instagram"></i> instagram
+										</a>
+									</li>
+									<!-- <li>
+										<a href="#"> <i class="fa fa-lg fa-fw fa-twitter"></i> twitter
+										</a>
+									</li>
+									<li>
+										<a href="#"> <i class="fa fa-lg fa-fw fa-twitter"></i> twitter
+										</a>
+									</li> -->
+									<!-- <li>
+										<a href="#"> <i class="fa fa-lg fa-fw fa-tripadvisor"></i> Trip Advisor
+										</a>
+									</li> -->
+									<!-- <li>
+										<a href="#"> <i class="fa fa-lg fa-fw fa-whatsapp"></i> Whatsapp
+										</a>
+									</li> -->
+
+								</ul>
+
+							</section>
+						</div>
+					</section>
+				</div>
+				<div class="pure-u-1 pure-u-md-1-3">
+					<section class="box">
+						<header class="major">
+							<h3>Links</h3>
+							<!-- <span class="byline">If you like our services, please follow and rate us.</span> -->
+						</header>
+						<div class="row">
+							<section class="6u">
+								<ul class="default">
+									<li>
+										<a href="http://batikair.com"> <i class="fa fa-lg fa-fw fa-plane"></i> Batik Air
+										</a>
+									</li>
+									<li>
+										<a href="http://batikair.com"> <i class="fa fa-lg fa-fw fa-plane"></i> Guruda Air
+										</a>
+									</li>
+									<li>
+										<a href="http://lazydiving.com" target="_blank"><i class="fa fa-lg fa-fw fa-link"></i> 潜水时光 - Chinese Diving Website
+										</a>
+									</li>
+									<li>
+										<a href="http://eol.org"><i class="fa fa-lg fa-fw fa-link"></i> Encylopidia Of Life
+										</a>
+									</li>
+									<li>
+										<a href="http://fishbase.org"> <i class="fa fa-lg fa-fw fa-link"></i> Fish Base
+										</a>
+									</li>
+
+
+								</ul>
+
+							</section>
+						</div>
+					</section>
+				</div>
+			</div>
+
+
+
+		</div>
+	</div>
+	<script src="/assets/slicknav/dist/jquery.slicknav.js"></script>
+	<script src="/assets/js/jquery.sticky-kit.min.js"></script>
+	<script src="/assets/js/scrolla.jquery.min.js"></script>
+<script>
+	$(function() {
+		$('#menu').slicknav(
+			{
+				brand: 'Ambon Blue Rose Divers',
+				label: '',
+				showChildren : true,
+				removeClasses : true
+				// openedSymbol: '\f00b'
+			}
+		);
+		$(".sidebar").stick_in_parent();
+		// $('.animate').scrolla({
+	    // 	mobile: false, // disable animation on mobiles
+		// 	once: true // only once animation play on scroll
+		// });
+	});
+</script>
+
+</body>
+
+</html>

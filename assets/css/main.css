@@ -17,7 +17,7 @@ input, select, textarea {
   line-height: 1.75em; }
 
 a {
-  color: #3ac984;
+  color: #6595fa;
   text-decoration: underline; }
   a:hover {
     text-decoration: none; }
@@ -539,7 +539,6 @@ body .slicknav_menu {
     /*font-size: 0.9em; */
     font-weight: bold; }
   #main .sidebar .default a {
-    color: #19B5FE;
     font-size: 1em; }
   #main .sidebar li a {
     text-decoration: none; }
@@ -686,3 +685,7 @@ ul.second > :first-child {
 
 .note {
   color: red; }
+
+#map {
+  height: 400px;
+  width: 100%; }

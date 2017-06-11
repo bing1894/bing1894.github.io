@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("../fa/css/font-awesome.min.css");
 @import url("../icon/iconfont.css");
 @import url("./animate.css");
@@ -266,6 +267,13 @@
   padding-bottom: 11em; }
 
 /* Basic */
+.float-right {
+  float: right; }
+
+@media (max-width: 768px) {
+  .hide-sm {
+    display: none; } }
+
 body {
   /*background: #222833; */
   background: floralwhite;
@@ -287,6 +295,8 @@ input, select, textarea {
 a {
   color: #6595fa;
   text-decoration: underline; }
+  a.noline {
+    text-decoration: none; }
   a:hover {
     text-decoration: none; }
 
@@ -390,6 +400,9 @@ header h2 {
   margin: 0;
   padding: 0;
   font-size: 2.2em; }
+  @media (max-width: 768px) {
+    header h2 {
+      font-size: 1.8em; } }
 header .byline {
   font-size: 1.2em; }
 
@@ -775,16 +788,61 @@ input[type="submit"].small, input[type="reset"].small, input[type="button"].smal
     display: none; } }
 body .slicknav_menu {
   display: none;
-  background: #f78536;
+  background: transparent;
   position: fixed;
   top: 0px;
   width: 100%;
   z-index: 100;
-  padding: 0.5em; }
+  padding: 0 0 1.5em 0; }
   body .slicknav_menu .slicknav_btn {
     background: none; }
   body .slicknav_menu .slicknav_brand {
-    font-size: 1.2em; }
+    font-size: 1.2em;
+    text-align: center; }
+  body .slicknav_menu .slicknav_nav {
+    font-size: 1em;
+    margin: 0 -10px -10px -10px;
+    padding: 0 30px; }
+    body .slicknav_menu .slicknav_nav a {
+      padding: 1px 0; }
+    body .slicknav_menu .slicknav_nav li li a {
+      font-size: 0.9em; }
+    body .slicknav_menu .slicknav_nav > li:first-child {
+      padding-top: 0.5em; }
+    body .slicknav_menu .slicknav_nav > li:first-child > a:after {
+      content: "";
+      float: right; }
+    body .slicknav_menu .slicknav_nav > li:nth-child(5) > a:after {
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: 18px;
+      padding-top: 2px;
+      content: "";
+      float: right; }
+    body .slicknav_menu .slicknav_nav > li:last-child > a {
+      border-bottom: 0; }
+    body .slicknav_menu .slicknav_nav:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.9;
+      z-index: -1;
+      background: #42A5F5; }
+  body .slicknav_menu .slicknav_arrow {
+    float: right; }
+  body .slicknav_menu .slicknav_btn {
+    margin-top: 7px; }
+  body .slicknav_menu .slicknav_menu_head {
+    background: #1565C0;
+    height: 54px;
+    padding: 5px; }
+  body .slicknav_menu .logos {
+    margin: 6px 0 6px 6px;
+    height: 32px;
+    float: left;
+    opacity: 0.8; }
   @media (max-width: 768px) {
     body .slicknav_menu {
       display: block; }
@@ -799,7 +857,8 @@ body .slicknav_menu {
   text-align: center; }
 
 h2.headerbig {
-  font-size: 2.5em; }
+  font-size: 2.5em;
+  margin-bottom: 0; }
 
 #main {
   padding: 4em 0; }
@@ -826,13 +885,16 @@ h2.headerbig {
     margin-bottom: 3em; }
   @media (max-width: 768px) {
     #main {
-      margin-top: 4em; } }
+      margin-top: 1em; } }
 
 /* Footer */
 #footer {
   background: dimgray;
   padding: 4em 0;
   color: #ddd; }
+  @media (max-width: 768px) {
+    #footer {
+      padding: 1em 0 2em; } }
   #footer .major {
     padding: 0 0 1em; }
     #footer .major h2 {
@@ -868,7 +930,7 @@ h2.headerbig {
 
 .gallery2 .image-card {
   position: relative;
-  padding: 3px; }
+  padding: 1px; }
   .gallery2 .image-card .image-meta {
     display: none;
     text-align: left;
@@ -880,8 +942,11 @@ h2.headerbig {
     font-size: 1em;
     line-height: 1.1em;
     font-family: serif; }
-  .gallery2 .image-card:hover .image-meta {
-    display: block; }
+  @media (min-width: 768px) {
+    .gallery2 .image-card {
+      padding: 2px; }
+      .gallery2 .image-card:hover .image-meta {
+        display: block; } }
   .gallery2 .image-card p {
     display: none;
     margin-top: 5px; }
@@ -890,10 +955,17 @@ h2.headerbig {
   object-fit: cover; }
 
 .gheader {
+  margin-bottom: 0.5em;
   text-align: left; }
   .gheader h2 {
-    font-size: 2em;
-    margin-bottom: -0.3em; }
+    font-size: 1.8em;
+    margin-bottom: -0.1em; }
+
+.gtitle2 {
+  font-size: 1.5em; }
+
+.fancybox-caption {
+  text-align: center; }
 
 /*add */
 .sidebar {

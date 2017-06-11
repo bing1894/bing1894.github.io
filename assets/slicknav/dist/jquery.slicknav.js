@@ -116,11 +116,19 @@
         }
 
         // create menu bar
+
+
         $this.mobileNav.attr('class', prefix + '_nav');
         menuBar = $('<div class="' + prefix + '_menu"></div>');
+
+		var menuHead  = $('<div class="' + prefix + '_menu_head"></div>');
+
+		var logoDiv  = $('<img class="logos" src="/assets/images/logos.png">');
+		$(menuHead).append(logoDiv);
+
 		if (settings.brand !== '') {
 			var brand = $('<div class="' + prefix + '_brand">'+settings.brand+'</div>');
-			$(menuBar).append(brand);
+			$(menuHead).append(brand);
 		}
         $this.btn = $(
             ['<' + settings.parentTag + ' aria-haspopup="true" role="button" tabindex="0" class="' + prefix + '_btn ' + prefix + '_collapsed">',
@@ -133,7 +141,8 @@
             '</' + settings.parentTag + '>'
             ].join('')
         );
-        $(menuBar).append($this.btn);
+        $(menuHead).append($this.btn);
+		$(menuBar).append(menuHead)
         if(settings.appendTo !== '') {
             $(settings.appendTo).append(menuBar);
         } else {
@@ -274,12 +283,12 @@
                     if (ev.keyCode !== Keyboard.DOWN || !$($this.btn).hasClass(prefix+'_open')){
                         $this._menuToggle();
                     }
-                    
+
                     $($this.btn).next().find('[role="menuitem"]').first().focus();
                     break;
             }
 
-            
+
         });
 
         $this.mobileNav.on('keydown', '.'+prefix+'_item', function(e) {
@@ -337,7 +346,7 @@
                     e.preventDefault();
                     $this._menuToggle();
                     $($this.btn).focus();
-                    break;    
+                    break;
             }
         });
 
@@ -407,7 +416,7 @@
         if (animate) {
             duration = settings.duration;
         }
-        
+
         function afterOpen(trigger, parent) {
             $(trigger).removeClass(prefix+'_animating');
             $(parent).removeClass(prefix+'_animating');
@@ -417,7 +426,7 @@
                 settings.afterOpen(trigger);
             }
         }
-        
+
         function afterClose(trigger, parent) {
             el.attr('aria-hidden','true');
             items.attr('tabindex', '-1');
@@ -470,7 +479,7 @@
                     afterClose(trigger, parent)
                 });
             } else if (settings.animations === 'velocity') {
-                
+
                 el.velocity("finish").velocity("slideUp", {
                     duration: duration,
                     easing: settings.easingClose,
